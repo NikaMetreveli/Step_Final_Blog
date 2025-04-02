@@ -8,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 
+def home_page(request):
+    """View function for the home page"""
+    return render(request, 'base.html')
+
 def register_user(request):
     form = AuthorCreationForm(request.POST or None)
 
@@ -39,3 +43,4 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully')
     return redirect('home')
+
