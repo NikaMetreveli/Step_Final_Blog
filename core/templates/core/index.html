@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="my-4">Top 3 Liked Books</h2>
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Author: {{ book.author.username }}</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">Genre: {{ book.genre.name }}</h6>
+                    <p class="card-text">Published Year: {{ book.published_year }}</p>
+                    <p class="card-text">ISBN: {{ book.isbn }}</p>
+                    <p class="card-text">Likes: {{ book.likes.count }}</p>
+                    <a href="{% url 'details' book.id %}" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <p>No top liked books available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

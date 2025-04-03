@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a New Book{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Add a New Book</h2>
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>There were errors in your submission. Please check below.</strong>
+        </div>
+    {% endif %}
+
+    <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <h4>Book Details</h4>
+            <hr>
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Book</button>
+        <a href="{% url 'books' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

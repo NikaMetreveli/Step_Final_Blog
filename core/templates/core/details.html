@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }} Details{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title text-center">{{ book.title }}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted">Author: {{ book.author.username }}</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">Genre: {{ book.genre.name }}</h6>
+                    <p class="card-text"><strong>Published Year:</strong> {{ book.published_year }}</p>
+                    <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
+                    <p class="card-text"><strong>Book ID:</strong> {{ book.id }}</p>
+                    <p class="card-text"><strong>Price:</strong> ${{ book.price }}</p>
+                
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{% url 'books' %}" class="btn btn-secondary">
+                            <i class="fa fa-arrow-left"></i> Back to List
+                        </a>
+
+                        {% if book.author == user %}
+                        <div>
+                            <a href="{% url 'edit_book' book.id %}" class="btn btn-warning">
+                                <i class="fa fa-edit"></i> Edit
+                            </a>
+                        
+                            <form action="{% url 'delete_book' book.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
